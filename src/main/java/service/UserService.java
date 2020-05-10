@@ -77,9 +77,10 @@ public class UserService {
     }
 
     public boolean isUserAuthById(Long id) {
-        while (getAllAuth().iterator().hasNext()) {
-            if (getAllAuth().contains(id)) ;
-            return true;
+        for (User userAuth : getAllAuth()) {
+            if (userAuth.getId().equals(id)) {
+                return true;
+            }
         }
         return false;
     }
