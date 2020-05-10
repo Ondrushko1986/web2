@@ -19,19 +19,8 @@ public class LoginServlet extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
-        boolean flag = true;
-        if (!email.isEmpty() & !password.isEmpty()) {
-            User user = new User(email, password);
-            flag = !userService.authUser(user);
-        }
+        userService.authUser(new User(email, password));
 
-        resp.setContentType("text/html;charset=utf-8");
-
-        if (!flag) {
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        } else {
-            resp.setStatus(HttpServletResponse.SC_OK);
-        }
     }
 
 

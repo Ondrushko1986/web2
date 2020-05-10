@@ -56,12 +56,7 @@ public class UserService {
     }
 
     public boolean isExistsThisUser(User user) {
-        while (getAllUsers().iterator().hasNext()) {
-            if (getAllUsers().iterator().next().equals(user)) {
-                return true;
-            }
-        }
-        return false;
+        return dataBase.containsValue(user);
     }
 
     public List<User> getAllAuth() {
@@ -69,7 +64,12 @@ public class UserService {
     }
 
     public boolean authUser(User user) {
-        return authMap.containsValue(user);
+        if (isExistsThisUser(user) & !authMap.containsValue(user)) {
+            getAllUsers().forEach(x -> { if (x.equals(user)) user.setId(x.getId()); });
+            authMap.put(user.getId(), user);
+            return true;
+        }
+        return false;
     }
 
     public void logoutAllUsers() {
@@ -77,12 +77,7 @@ public class UserService {
     }
 
     public boolean isUserAuthById(Long id) {
-        for (User userAuth : getAllAuth()) {
-            if (userAuth.getId().equals(id)) {
-                return true;
-            }
-        }
-        return false;
+        return authMap.containsKey(id);
     }
 
 }
