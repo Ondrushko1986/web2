@@ -37,7 +37,7 @@ public class RegistrationServlet extends HttpServlet {
             flag = !userService.authUser(user);
         }
 
-        if (flag) {
+        if (!flag) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else {
             resp.setStatus(HttpServletResponse.SC_OK);

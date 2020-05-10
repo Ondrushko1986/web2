@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
 
         resp.setContentType("text/html;charset=utf-8");
 
-        if (flag) {
+        if (!flag) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else {
             resp.setStatus(HttpServletResponse.SC_OK);

@@ -41,16 +41,12 @@ public class UserService {
     }
 
     public boolean addUser(User user) {
-        if (!isExistsThisUser(user)) {
-            user.setId(maxId.incrementAndGet());
+        if (dataBase.containsValue(user)) {
+            return false;
+        } else {
+            dataBase.put(maxId.getAndIncrement(), user);
             return true;
         }
-        if (dataBase.isEmpty()) {
-            user.setId(maxId.incrementAndGet());
-            dataBase.put(user.getId(), user);
-            return true;
-        }
-        return false;
     }
 
     public void deleteAllUser() {
@@ -82,7 +78,7 @@ public class UserService {
 
     public boolean isUserAuthById(Long id) {
         while (getAllAuth().iterator().hasNext()) {
-            if (getAllAuth().contains(id));
+            if (getAllAuth().contains(id)) ;
             return true;
         }
         return false;
